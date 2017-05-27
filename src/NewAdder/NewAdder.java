@@ -3,14 +3,52 @@ package NewAdder;
 import java.io.FileReader;
 
 public class NewAdder implements NewAdderConstants {
+  double previousValue = 0.0;
+
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test3.txt");
+    FileReader reader = new FileReader("./assets/test4.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parseIf();
+    newAdder.easyCalculator();
   }
 
-  static final public void parse() throws ParseException {
+  final public void parseExpress() throws ParseException {
+    jj_consume_token(INT);
+    jj_consume_token(LMPRANRENT);
+    jj_consume_token(NUMBER);
+    jj_consume_token(RMPRANRENT);
+    jj_consume_token(STRING);
+    jj_consume_token(EQUEAL);
+    jj_consume_token(LPAR);
+    jj_consume_token(NUMBER);
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COMMA:
+        ;
+        break;
+      default:
+        jj_la1[0] = jj_gen;
+        break label_1;
+      }
+      jj_consume_token(COMMA);
+      jj_consume_token(NUMBER);
+    }
+    jj_consume_token(RPAR);
+    jj_consume_token(COLON);
+    jj_consume_token(0);
+  }
+
+  final public void parseIf() throws ParseException {
+    jj_consume_token(IF);
+    jj_consume_token(LPRANRENT);
+    jj_consume_token(RPRANRENT);
+    jj_consume_token(LPAR);
+    jj_consume_token(RPAR);
+    jj_consume_token(0);
+  }
+
+  final public void parse() throws ParseException {
     jj_consume_token(NUMBER);
     switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
     case PLUS:
@@ -26,7 +64,7 @@ public class NewAdder implements NewAdderConstants {
       jj_consume_token(DIVISION);
       break;
     default:
-      jj_la1[0] = jj_gen;
+      jj_la1[1] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -34,59 +72,102 @@ public class NewAdder implements NewAdderConstants {
     jj_consume_token(0);
   }
 
-  static final public void parseExpress() throws ParseException {
-    jj_consume_token(INT);
-    jj_consume_token(LMPRANRENT);
-    jj_consume_token(NUMBER);
-    jj_consume_token(RMPRANRENT);
-    jj_consume_token(STRING);
-    jj_consume_token(EQUEAL);
-    jj_consume_token(LBIGPRANRENT);
-    jj_consume_token(NUMBER);
-    label_1:
+  final public void add() throws ParseException {
+        Token t;
+        int i;
+        int value;
+    t = jj_consume_token(NUMBER);
+                i=Integer.parseInt(t.image);
+                value=i;
+    label_2:
     while (true) {
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case COMMA:
+      case PLUS:
         ;
         break;
       default:
-        jj_la1[1] = jj_gen;
-        break label_1;
+        jj_la1[2] = jj_gen;
+        break label_2;
       }
-      jj_consume_token(COMMA);
-      jj_consume_token(NUMBER);
+      jj_consume_token(PLUS);
+      t = jj_consume_token(NUMBER);
+                        i=Integer.parseInt(t.image);
+                        value+=i;
     }
-    jj_consume_token(RBIGPRANRENT);
-    jj_consume_token(COLON);
     jj_consume_token(0);
+                System.out.println("add : "+value);
   }
 
-  static final public void parseIf() throws ParseException {
-    jj_consume_token(IF);
-    jj_consume_token(LPRANRENT);
-    jj_consume_token(RPRANRENT);
-    jj_consume_token(LBIGPRANRENT);
-    jj_consume_token(RBIGPRANRENT);
-    jj_consume_token(0);
+  final public void easyCalculator() throws ParseException, Exception {
+  double i;
+  double value;
+    value = primary();
+    label_3:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case PLUS:
+      case MINUS:
+      case MULIPIKATION:
+      case DIVISION:
+        ;
+        break;
+      default:
+        jj_la1[3] = jj_gen;
+        break label_3;
+      }
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case PLUS:
+        jj_consume_token(PLUS);
+        i = primary();
+      value += i;
+        break;
+      case MINUS:
+        jj_consume_token(MINUS);
+        i = primary();
+      value -= i;
+        break;
+      case MULIPIKATION:
+        jj_consume_token(MULIPIKATION);
+        i = primary();
+      value *= i;
+        break;
+      case DIVISION:
+        jj_consume_token(DIVISION);
+        i = primary();
+      value /= i;
+        break;
+      default:
+        jj_la1[4] = jj_gen;
+        jj_consume_token(-1);
+        throw new ParseException();
+      }
+    }
+   System.out.println("complexAdd : "+value);
   }
 
-  static private boolean jj_initialized_once = false;
+  final public double primary() throws ParseException, Exception {
+  Token t;
+    t = jj_consume_token(NUMBER);
+    {if (true) return Double.parseDouble(t.image);}
+    throw new Error("Missing return statement in function");
+  }
+
   /** Generated Token Manager. */
-  static public NewAdderTokenManager token_source;
-  static SimpleCharStream jj_input_stream;
+  public NewAdderTokenManager token_source;
+  SimpleCharStream jj_input_stream;
   /** Current token. */
-  static public Token token;
+  public Token token;
   /** Next token. */
-  static public Token jj_nt;
-  static private int jj_ntk;
-  static private int jj_gen;
-  static final private int[] jj_la1 = new int[2];
+  public Token jj_nt;
+  private int jj_ntk;
+  private int jj_gen;
+  final private int[] jj_la1 = new int[5];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x780,0x80000,};
+      jj_la1_0 = new int[] {0x80000,0x780,0x80,0x780,0x780,};
    }
 
   /** Constructor with InputStream. */
@@ -95,76 +176,55 @@ public class NewAdder implements NewAdderConstants {
   }
   /** Constructor with InputStream and supplied encoding */
   public NewAdder(java.io.InputStream stream, String encoding) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser.  ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     try { jj_input_stream = new SimpleCharStream(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source = new NewAdderTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream) {
+  public void ReInit(java.io.InputStream stream) {
      ReInit(stream, null);
   }
   /** Reinitialise. */
-  static public void ReInit(java.io.InputStream stream, String encoding) {
+  public void ReInit(java.io.InputStream stream, String encoding) {
     try { jj_input_stream.ReInit(stream, encoding, 1, 1); } catch(java.io.UnsupportedEncodingException e) { throw new RuntimeException(e); }
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
   public NewAdder(java.io.Reader stream) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     jj_input_stream = new SimpleCharStream(stream, 1, 1);
     token_source = new NewAdderTokenManager(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
-  static public void ReInit(java.io.Reader stream) {
+  public void ReInit(java.io.Reader stream) {
     jj_input_stream.ReInit(stream, 1, 1);
     token_source.ReInit(jj_input_stream);
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
   public NewAdder(NewAdderTokenManager tm) {
-    if (jj_initialized_once) {
-      System.out.println("ERROR: Second call to constructor of static parser. ");
-      System.out.println("       You must either use ReInit() or set the JavaCC option STATIC to false");
-      System.out.println("       during parser generation.");
-      throw new Error();
-    }
-    jj_initialized_once = true;
     token_source = tm;
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -173,10 +233,10 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 5; i++) jj_la1[i] = -1;
   }
 
-  static private Token jj_consume_token(int kind) throws ParseException {
+  private Token jj_consume_token(int kind) throws ParseException {
     Token oldToken;
     if ((oldToken = token).next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
@@ -192,7 +252,7 @@ public class NewAdder implements NewAdderConstants {
 
 
 /** Get the next Token. */
-  static final public Token getNextToken() {
+  final public Token getNextToken() {
     if (token.next != null) token = token.next;
     else token = token.next = token_source.getNextToken();
     jj_ntk = -1;
@@ -201,7 +261,7 @@ public class NewAdder implements NewAdderConstants {
   }
 
 /** Get the specific Token. */
-  static final public Token getToken(int index) {
+  final public Token getToken(int index) {
     Token t = token;
     for (int i = 0; i < index; i++) {
       if (t.next != null) t = t.next;
@@ -210,26 +270,26 @@ public class NewAdder implements NewAdderConstants {
     return t;
   }
 
-  static private int jj_ntk() {
+  private int jj_ntk() {
     if ((jj_nt=token.next) == null)
       return (jj_ntk = (token.next=token_source.getNextToken()).kind);
     else
       return (jj_ntk = jj_nt.kind);
   }
 
-  static private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
-  static private int[] jj_expentry;
-  static private int jj_kind = -1;
+  private java.util.List<int[]> jj_expentries = new java.util.ArrayList<int[]>();
+  private int[] jj_expentry;
+  private int jj_kind = -1;
 
   /** Generate ParseException. */
-  static public ParseException generateParseException() {
+  public ParseException generateParseException() {
     jj_expentries.clear();
     boolean[] la1tokens = new boolean[20];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 5; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -253,11 +313,11 @@ public class NewAdder implements NewAdderConstants {
   }
 
   /** Enable tracing. */
-  static final public void enable_tracing() {
+  final public void enable_tracing() {
   }
 
   /** Disable tracing. */
-  static final public void disable_tracing() {
+  final public void disable_tracing() {
   }
 
 }

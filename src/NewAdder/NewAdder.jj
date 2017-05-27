@@ -1,14 +1,21 @@
+options
+{
+  STATIC = false;
+}
+
 PARSER_BEGIN(NewAdder)
 package NewAdder;
 import java.io.FileReader;
 
 public class NewAdder
 {
+  double previousValue = 0.0;
+  
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test3.txt");
+    FileReader reader = new FileReader("./assets/test4.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parseIf();
+    newAdder.easyCalculator();
   }
 }
 
@@ -16,9 +23,16 @@ PARSER_END(NewAdder)
 
 SKIP :
 {
-  " " | "\n"
+  " "
 }
 
+TOKEN :
+{
+  < EOL :
+    "\n"
+  | "\r"
+  | "\r\n" >
+}
 
 TOKEN :
 {
@@ -88,12 +102,12 @@ TOKEN :
 
 TOKEN :
 {
-  < LBIGPRANRENT : "{" >
+  < LPAR : "{" >
 }
 
 TOKEN :
 {
-  < RBIGPRANRENT : "}" >
+  < RPAR : "}" >
 }
 
 TOKEN :
@@ -108,22 +122,99 @@ TOKEN :
 
 
 
-public void parse() :
-{}
-{
-  < NUMBER > ( < PLUS > | < MINUS > | < MULIPIKATION > |< DIVISION > ) < NUMBER > < EOF >
-}
+
 
 //int[2] A3 = {1,22};
 public void parseExpress() :
 {}
 {
-  < INT > <LMPRANRENT > < NUMBER > <RMPRANRENT > < STRING> < EQUEAL> < LBIGPRANRENT > < NUMBER > (<COMMA >< NUMBER >)* <RBIGPRANRENT > < COLON > < EOF >
+  < INT > <LMPRANRENT > < NUMBER > <RMPRANRENT > < STRING> < EQUEAL> < LPAR > < NUMBER > (<COMMA >< NUMBER >)* <RPAR > < COLON > < EOF >
 }
 
 //if(){}
 public void parseIf() :
 {}
 {
-  < IF > <LPRANRENT >  <RPRANRENT >< LBIGPRANRENT > <RBIGPRANRENT >  < EOF >
+  < IF > <LPRANRENT >  <RPRANRENT >< LPAR > <RPAR >  < EOF >
+}
+
+
+
+
+//1+1
+public void parse() :
+{}
+{
+  < NUMBER > ( < PLUS > | < MINUS > | < MULIPIKATION > |< DIVISION > ) < NUMBER > < EOF >
+}
+
+//一个简单的解释器 哈哈 可以识别并执行简单的加法 1+1，1+5+13
+public void add() : 
+{
+  	Token t;
+  	int i;
+  	int value;
+}
+{
+	t=<NUMBER>
+	{
+	  	i=Integer.parseInt(t.image);
+	  	value=i; 
+	}
+	(
+		<PLUS>
+		t=<NUMBER>
+		{
+			i=Integer.parseInt(t.image);
+			value+=i;
+		}
+	)*
+	<EOF>
+	{
+		System.out.println("add : "+value);
+	}
+}
+
+
+//一个稍微复杂点的解释器 可以识别并执行简单的加法 1+2,5-3,2*3,9/3
+public void easyCalculator() throws Exception :
+{
+  double i;
+  double value;
+}
+{
+  value = primary()
+  (
+    < PLUS > i = primary()
+    {
+      value += i;
+    }
+  	| < MINUS > i = primary()
+    {
+      value -= i;
+    }
+    | < MULIPIKATION > i = primary()
+    {
+      value *= i;
+    }
+    | < DIVISION > i = primary()
+    {
+      value /= i;
+    }
+   
+  )*
+  {
+   System.out.println("complexAdd : "+value);
+  }
+}
+
+double primary() throws Exception :
+{
+  Token t;
+}
+{
+  t = < NUMBER >
+  {
+    return Double.parseDouble(t.image);
+  }
 }

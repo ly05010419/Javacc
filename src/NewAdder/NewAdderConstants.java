@@ -11,6 +11,8 @@ public interface NewAdderConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
+  int EOL = 2;
+  /** RegularExpression Id. */
   int INT = 3;
   /** RegularExpression Id. */
   int IF = 4;
@@ -37,9 +39,9 @@ public interface NewAdderConstants {
   /** RegularExpression Id. */
   int RMPRANRENT = 15;
   /** RegularExpression Id. */
-  int LBIGPRANRENT = 16;
+  int LPAR = 16;
   /** RegularExpression Id. */
-  int RBIGPRANRENT = 17;
+  int RPAR = 17;
   /** RegularExpression Id. */
   int COLON = 18;
   /** RegularExpression Id. */
@@ -52,7 +54,7 @@ public interface NewAdderConstants {
   String[] tokenImage = {
     "<EOF>",
     "\" \"",
-    "\"\\n\"",
+    "<EOL>",
     "\"int\"",
     "\"if\"",
     "<STRING>",
