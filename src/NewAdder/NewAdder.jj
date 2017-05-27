@@ -61,22 +61,7 @@ TOKEN :
 
 TOKEN :
 {
-  < PLUS : "+" >
-}
-
-TOKEN :
-{
-  < MINUS : "-" >
-}
-
-TOKEN :
-{
-  < MULIPIKATION : "*" >
-}
-
-TOKEN :
-{
-  < DIVISION : "/" >
+  < PLUS : "+" > |< MINUS : "-" > |< MULIPIKATION : "*" >| < DIVISION : "/" >
 }
 
 TOKEN :
@@ -86,23 +71,20 @@ TOKEN :
 
 TOKEN :
 {
-  < LMPRANRENT : "[" >
+  < LMPRANRENT : "[" > |< RMPRANRENT : "]" >
 }
 
 TOKEN :
 {
-  < RMPRANRENT : "]" >
+  < OPEN_PAR : "(" > | < CLOSE_PAR : ")" >
 }
+
 
 TOKEN :
 {
-  < LPAR : "{" >
+  < LPAR : "{" > |< RPAR : "}" >
 }
 
-TOKEN :
-{
-  < RPAR : "}" >
-}
 
 TOKEN :
 {
@@ -114,42 +96,25 @@ TOKEN :
   < COMMA : "," >
 }
 
-TOKEN :
-{
-  < OPEN_PAR : "(" >
-}
+
 
 TOKEN :
 {
-  < GROSS : ">" >
+  < GROSS : ">" >|< GROSS_GLEICH : "=>" > |< KLEIN : "<" >|< KLEIN_GLEICH : "<=" >
 }
+
+
 
 TOKEN :
 {
-  < GROSS_GLEICH : "=>" >
+  < AND :( "AND" | "&&" ) > | < OR :( "OR" | "||" ) > | < NOT : ( "NOT"| "!" ) >
 }
-
-TOKEN :
-{
-  < KLEIN : "<" >
-}
-
-TOKEN :
-{
-  < KLEIN_GLEICH : "<=" >
-}
-
-TOKEN :
-{
-  < CLOSE_PAR : ")" >
-}
-
 
 //识别一个带表达式的if语句
 public void parseIf() :
 {}
 {
-  < IF > < OPEN_PAR > bediennung() < CLOSE_PAR > < LPAR > Expression() < COLON > < RPAR > < EOF >
+  < IF > < OPEN_PAR > bediennung() ((<AND>|<OR>|<NOT>)bediennung())* < CLOSE_PAR > < LPAR > Expression() < COLON > < RPAR > < EOF >
 }
 
 public void bediennung() :
@@ -200,5 +165,5 @@ public void Primary() throws NumberFormatException :
 {
   < NUMMER >
 | 
-  < OPEN_PAR >Expression() < CLOSE_PAR >
+  < OPEN_PAR > Expression() < CLOSE_PAR >
 }

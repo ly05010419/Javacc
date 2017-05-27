@@ -35,25 +35,31 @@ public interface NewAdderConstants {
   /** RegularExpression Id. */
   int RMPRANRENT = 17;
   /** RegularExpression Id. */
-  int LPAR = 18;
+  int OPEN_PAR = 18;
   /** RegularExpression Id. */
-  int RPAR = 19;
+  int CLOSE_PAR = 19;
   /** RegularExpression Id. */
-  int COLON = 20;
+  int LPAR = 20;
   /** RegularExpression Id. */
-  int COMMA = 21;
+  int RPAR = 21;
   /** RegularExpression Id. */
-  int OPEN_PAR = 22;
+  int COLON = 22;
   /** RegularExpression Id. */
-  int GROSS = 23;
+  int COMMA = 23;
   /** RegularExpression Id. */
-  int GROSS_GLEICH = 24;
+  int GROSS = 24;
   /** RegularExpression Id. */
-  int KLEIN = 25;
+  int GROSS_GLEICH = 25;
   /** RegularExpression Id. */
-  int KLEIN_GLEICH = 26;
+  int KLEIN = 26;
   /** RegularExpression Id. */
-  int CLOSE_PAR = 27;
+  int KLEIN_GLEICH = 27;
+  /** RegularExpression Id. */
+  int AND = 28;
+  /** RegularExpression Id. */
+  int OR = 29;
+  /** RegularExpression Id. */
+  int NOT = 30;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -78,16 +84,19 @@ public interface NewAdderConstants {
     "\"=\"",
     "\"[\"",
     "\"]\"",
+    "\"(\"",
+    "\")\"",
     "\"{\"",
     "\"}\"",
     "\";\"",
     "\",\"",
-    "\"(\"",
     "\">\"",
     "\"=>\"",
     "\"<\"",
     "\"<=\"",
-    "\")\"",
+    "<AND>",
+    "<OR>",
+    "<NOT>",
   };
 
 }
