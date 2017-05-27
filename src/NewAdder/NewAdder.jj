@@ -145,7 +145,7 @@ TOKEN :
 }
 
 
-
+//识别一个带表达式的if语句
 public void parseIf() :
 {}
 {
