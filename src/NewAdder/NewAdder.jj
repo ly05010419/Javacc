@@ -1,0 +1,51 @@
+PARSER_BEGIN(NewAdder)
+package NewAdder;
+import java.io.FileReader;
+
+public class NewAdder
+{
+  public static void main(String [] args) throws Exception
+  {
+    FileReader reader = new FileReader("./assets/test.txt");
+    NewAdder newAdder = new NewAdder(reader);
+    newAdder.parse();
+  }
+}
+
+PARSER_END(NewAdder)
+
+SKIP :
+{
+  " "
+}
+
+TOKEN :
+{
+  < NUMBER : ([ "0"-"9" ])+ >
+}
+
+TOKEN :
+{
+  < PLUS : "+" >
+}
+
+TOKEN :
+{
+  < MINUS : "-" >
+}
+
+TOKEN :
+{
+  < MULIPIKATION : "*" >
+}
+
+TOKEN :
+{
+  < DIVISION : "/" >
+}
+
+public void parse() :
+{}
+{
+  < NUMBER > ( < PLUS > | < MINUS > | < MULIPIKATION > |< DIVISION > ) < NUMBER > < EOF >
+}
