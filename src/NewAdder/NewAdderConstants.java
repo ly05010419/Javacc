@@ -11,43 +11,49 @@ public interface NewAdderConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int EOL = 2;
+  int INT = 6;
   /** RegularExpression Id. */
-  int INT = 3;
+  int IF = 7;
   /** RegularExpression Id. */
-  int IF = 4;
+  int STRING = 8;
   /** RegularExpression Id. */
-  int STRING = 5;
+  int NUMMER = 9;
   /** RegularExpression Id. */
-  int NUMBER = 6;
+  int DIGITS = 10;
   /** RegularExpression Id. */
-  int DIGITS = 7;
+  int PLUS = 11;
   /** RegularExpression Id. */
-  int PLUS = 8;
+  int MINUS = 12;
   /** RegularExpression Id. */
-  int MINUS = 9;
+  int MULIPIKATION = 13;
   /** RegularExpression Id. */
-  int MULIPIKATION = 10;
+  int DIVISION = 14;
   /** RegularExpression Id. */
-  int DIVISION = 11;
+  int EQUEAL = 15;
   /** RegularExpression Id. */
-  int EQUEAL = 12;
+  int LMPRANRENT = 16;
   /** RegularExpression Id. */
-  int LMPRANRENT = 13;
+  int RMPRANRENT = 17;
   /** RegularExpression Id. */
-  int RMPRANRENT = 14;
+  int LPAR = 18;
   /** RegularExpression Id. */
-  int LPAR = 15;
+  int RPAR = 19;
   /** RegularExpression Id. */
-  int RPAR = 16;
+  int COLON = 20;
   /** RegularExpression Id. */
-  int COLON = 17;
+  int COMMA = 21;
   /** RegularExpression Id. */
-  int COMMA = 18;
+  int OPEN_PAR = 22;
   /** RegularExpression Id. */
-  int OPEN_PAR = 19;
+  int GROSS = 23;
   /** RegularExpression Id. */
-  int CLOSE_PAR = 20;
+  int GROSS_GLEICH = 24;
+  /** RegularExpression Id. */
+  int KLEIN = 25;
+  /** RegularExpression Id. */
+  int KLEIN_GLEICH = 26;
+  /** RegularExpression Id. */
+  int CLOSE_PAR = 27;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -56,11 +62,14 @@ public interface NewAdderConstants {
   String[] tokenImage = {
     "<EOF>",
     "\" \"",
-    "<EOL>",
+    "\"\\n\"",
+    "\"\\r\"",
+    "\"\\r\\n\"",
+    "\"\\t\"",
     "\"int\"",
     "\"if\"",
     "<STRING>",
-    "<NUMBER>",
+    "<NUMMER>",
     "<DIGITS>",
     "\"+\"",
     "\"-\"",
@@ -74,6 +83,10 @@ public interface NewAdderConstants {
     "\";\"",
     "\",\"",
     "\"(\"",
+    "\">\"",
+    "\"=>\"",
+    "\"<\"",
+    "\"<=\"",
     "\")\"",
   };
 

@@ -13,9 +13,9 @@ public class NewAdder
 
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test5.txt");
+    FileReader reader = new FileReader("./assets/test6.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.easyCalculator();
+    newAdder.parseIf();
   }
 }
 
@@ -24,14 +24,10 @@ PARSER_END(NewAdder)
 SKIP :
 {
   " "
-}
-
-TOKEN :
-{
-  < EOL :
-    "\n"
-  | "\r"
-  | "\r\n" >
+| "\n"
+| "\r"
+| "\r\n"
+| "\t"
 }
 
 TOKEN :
@@ -51,7 +47,7 @@ TOKEN :
 
 TOKEN :
 {
-  < NUMBER :
+  < NUMMER :
     < DIGITS >
   | < DIGITS > "." < DIGITS >
   | < DIGITS > "."
@@ -125,84 +121,84 @@ TOKEN :
 
 TOKEN :
 {
+  < GROSS : ">" >
+}
+
+TOKEN :
+{
+  < GROSS_GLEICH : "=>" >
+}
+
+TOKEN :
+{
+  < KLEIN : "<" >
+}
+
+TOKEN :
+{
+  < KLEIN_GLEICH : "<=" >
+}
+
+TOKEN :
+{
   < CLOSE_PAR : ")" >
 }
 
-//支持小数和带括号的复杂的加减乘除的解释器 (1.5+2.5)*(5.5+4.5)+(1.5+1.5)*(5.5+4.5)
-public void easyCalculator() throws Exception :
+
+
+public void parseIf() :
 {}
 {
-  (
-    previousValue = Expression()
-    {
-      System.out.println(previousValue);
-    }
-  )*
+  < IF > < OPEN_PAR > bediennung() < CLOSE_PAR > < LPAR > Expression() < COLON > < RPAR > < EOF >
 }
 
-double Expression() throws NumberFormatException :
+public void bediennung() :
 {
-  double i;
-  double value;
 }
 {
-  value = Term()
+  < NUMMER >
+  (
+    < GROSS >
+  | < GROSS_GLEICH >
+  | < KLEIN >
+  | < KLEIN_GLEICH >
+  )
+  < NUMMER >
+}
+
+public void Expression() throws NumberFormatException :
+{
+}
+{
+  Term()
   (
     < PLUS > 
-    i = Term()
-    {
-      value += i;
-    }
+    Term()
   | 
     < MINUS > 
-    i = Term()
-    {
-      value -= i;
-    }
+    Term()
   )*
-  {
-    return value;
-  }
 }
 
-double Term() throws NumberFormatException :
+public void Term() throws NumberFormatException :
 {
-  double i;
-  double value;
 }
 {
-  value = Primary()
+  Primary()
   (
     < MULIPIKATION > 
-    i = Primary()
-    {
-      value *= i;
-    }
+    Primary()
   | 
     < DIVISION > 
-    i = Primary()
-    {
-      value /= i;
-    }
+    Primary()
   )*
-  {
-    return value;
-  }
 }
 
-double Primary() throws NumberFormatException :
+public void Primary() throws NumberFormatException :
 {
-  Token t;
-  double d;
 }
 {
-  t = < NUMBER >
-  {
-    return Double.parseDouble(t.image);
-  }
+  < NUMMER >
 | 
-  < OPEN_PAR > d = Expression() < CLOSE_PAR >
-  {
-    return d;
-  }
+  < OPEN_PAR >Expression() < CLOSE_PAR >
 }
