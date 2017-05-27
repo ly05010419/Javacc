@@ -10,10 +10,10 @@ import java.io.FileReader;
 public class NewAdder
 {
   double previousValue = 0.0;
-  
+
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test4.txt");
+    FileReader reader = new FileReader("./assets/test5.txt");
     NewAdder newAdder = new NewAdder(reader);
     newAdder.easyCalculator();
   }
@@ -41,18 +41,26 @@ TOKEN :
 
 TOKEN :
 {
-  < IF: "if" >
-}
-
-
-TOKEN :
-{
-  < STRING : (["a"-"z","A"-"Z"]) + (["0"-"9"])* >
+  < IF : "if" >
 }
 
 TOKEN :
 {
-  < NUMBER : ([ "0"-"9" ])+ >
+  < STRING : ([ "a"-"z", "A"-"Z" ])+ ([ "0"-"9" ])* >
+}
+
+TOKEN :
+{
+  < NUMBER :
+    < DIGITS >
+  | < DIGITS > "." < DIGITS >
+  | < DIGITS > "."
+  | "." < DIGITS > >
+}
+
+TOKEN :
+{
+  < #DIGITS : ([ "0"-"9" ])+ >
 }
 
 TOKEN :
@@ -78,16 +86,6 @@ TOKEN :
 TOKEN :
 {
   < EQUEAL : "=" >
-}
-
-TOKEN :
-{
-  < LPRANRENT : "(" >
-}
-
-TOKEN :
-{
-  < RPRANRENT : ")" >
 }
 
 TOKEN :
@@ -120,101 +118,91 @@ TOKEN :
   < COMMA : "," >
 }
 
-
-
-
-
-//int[2] A3 = {1,22};
-public void parseExpress() :
-{}
+TOKEN :
 {
-  < INT > <LMPRANRENT > < NUMBER > <RMPRANRENT > < STRING> < EQUEAL> < LPAR > < NUMBER > (<COMMA >< NUMBER >)* <RPAR > < COLON > < EOF >
+  < OPEN_PAR : "(" >
 }
 
-//if(){}
-public void parseIf() :
-{}
+TOKEN :
 {
-  < IF > <LPRANRENT >  <RPRANRENT >< LPAR > <RPAR >  < EOF >
+  < CLOSE_PAR : ")" >
 }
 
-
-
-
-//1+1
-public void parse() :
-{}
-{
-  < NUMBER > ( < PLUS > | < MINUS > | < MULIPIKATION > |< DIVISION > ) < NUMBER > < EOF >
-}
-
-//一个简单的解释器 哈哈 可以识别并执行简单的加法 1+1，1+5+13
-public void add() : 
-{
-  	Token t;
-  	int i;
-  	int value;
-}
-{
-	t=<NUMBER>
-	{
-	  	i=Integer.parseInt(t.image);
-	  	value=i; 
-	}
-	(
-		<PLUS>
-		t=<NUMBER>
-		{
-			i=Integer.parseInt(t.image);
-			value+=i;
-		}
-	)*
-	<EOF>
-	{
-		System.out.println("add : "+value);
-	}
-}
-
-
-//一个稍微复杂点的解释器 可以识别并执行简单的加法 1+2,5-3,2*3,9/3
+//支持小数和带括号的复杂的加减乘除的解释器 (1.5+2.5)*(5.5+4.5)+(1.5+1.5)*(5.5+4.5)
 public void easyCalculator() throws Exception :
+{}
+{
+  (
+    previousValue = Expression()
+    {
+      System.out.println(previousValue);
+    }
+  )*
+}
+
+double Expression() throws NumberFormatException :
 {
   double i;
   double value;
 }
 {
-  value = primary()
+  value = Term()
   (
-    < PLUS > i = primary()
+    < PLUS > 
+    i = Term()
     {
       value += i;
     }
-  	| < MINUS > i = primary()
+  | 
+    < MINUS > 
+    i = Term()
     {
       value -= i;
     }
-    | < MULIPIKATION > i = primary()
-    {
-      value *= i;
-    }
-    | < DIVISION > i = primary()
-    {
-      value /= i;
-    }
-   
   )*
   {
-   System.out.println("complexAdd : "+value);
+    return value;
   }
 }
 
-double primary() throws Exception :
+double Term() throws NumberFormatException :
+{
+  double i;
+  double value;
+}
+{
+  value = Primary()
+  (
+    < MULIPIKATION > 
+    i = Primary()
+    {
+      value *= i;
+    }
+  | 
+    < DIVISION > 
+    i = Primary()
+    {
+      value /= i;
+    }
+  )*
+  {
+    return value;
+  }
+}
+
+double Primary() throws NumberFormatException :
 {
   Token t;
+  double d;
 }
 {
   t = < NUMBER >
   {
     return Double.parseDouble(t.image);
+  }
+| 
+  < OPEN_PAR > d = Expression() < CLOSE_PAR >
+  {
+    return d;
   }
 }

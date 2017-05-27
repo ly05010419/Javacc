@@ -21,31 +21,33 @@ public interface NewAdderConstants {
   /** RegularExpression Id. */
   int NUMBER = 6;
   /** RegularExpression Id. */
-  int PLUS = 7;
+  int DIGITS = 7;
   /** RegularExpression Id. */
-  int MINUS = 8;
+  int PLUS = 8;
   /** RegularExpression Id. */
-  int MULIPIKATION = 9;
+  int MINUS = 9;
   /** RegularExpression Id. */
-  int DIVISION = 10;
+  int MULIPIKATION = 10;
   /** RegularExpression Id. */
-  int EQUEAL = 11;
+  int DIVISION = 11;
   /** RegularExpression Id. */
-  int LPRANRENT = 12;
+  int EQUEAL = 12;
   /** RegularExpression Id. */
-  int RPRANRENT = 13;
+  int LMPRANRENT = 13;
   /** RegularExpression Id. */
-  int LMPRANRENT = 14;
+  int RMPRANRENT = 14;
   /** RegularExpression Id. */
-  int RMPRANRENT = 15;
+  int LPAR = 15;
   /** RegularExpression Id. */
-  int LPAR = 16;
+  int RPAR = 16;
   /** RegularExpression Id. */
-  int RPAR = 17;
+  int COLON = 17;
   /** RegularExpression Id. */
-  int COLON = 18;
+  int COMMA = 18;
   /** RegularExpression Id. */
-  int COMMA = 19;
+  int OPEN_PAR = 19;
+  /** RegularExpression Id. */
+  int CLOSE_PAR = 20;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -59,19 +61,20 @@ public interface NewAdderConstants {
     "\"if\"",
     "<STRING>",
     "<NUMBER>",
+    "<DIGITS>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
     "\"=\"",
-    "\"(\"",
-    "\")\"",
     "\"[\"",
     "\"]\"",
     "\"{\"",
     "\"}\"",
     "\";\"",
     "\",\"",
+    "\"(\"",
+    "\")\"",
   };
 
 }
