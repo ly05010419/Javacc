@@ -5,9 +5,9 @@ import java.io.FileReader;
 public class NewAdder implements NewAdderConstants {
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test2.txt");
+    FileReader reader = new FileReader("./assets/test3.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parseExpress();
+    newAdder.parseIf();
   }
 
   static final public void parse() throws ParseException {
@@ -61,6 +61,15 @@ public class NewAdder implements NewAdderConstants {
     jj_consume_token(0);
   }
 
+  static final public void parseIf() throws ParseException {
+    jj_consume_token(IF);
+    jj_consume_token(LPRANRENT);
+    jj_consume_token(RPRANRENT);
+    jj_consume_token(LBIGPRANRENT);
+    jj_consume_token(RBIGPRANRENT);
+    jj_consume_token(0);
+  }
+
   static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
   static public NewAdderTokenManager token_source;
@@ -77,7 +86,7 @@ public class NewAdder implements NewAdderConstants {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x3c0,0x10000,};
+      jj_la1_0 = new int[] {0x780,0x80000,};
    }
 
   /** Constructor with InputStream. */
@@ -215,7 +224,7 @@ public class NewAdder implements NewAdderConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[17];
+    boolean[] la1tokens = new boolean[20];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
@@ -229,7 +238,7 @@ public class NewAdder implements NewAdderConstants {
         }
       }
     }
-    for (int i = 0; i < 17; i++) {
+    for (int i = 0; i < 20; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

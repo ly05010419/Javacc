@@ -6,9 +6,9 @@ public class NewAdder
 {
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test2.txt");
+    FileReader reader = new FileReader("./assets/test3.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parseExpress();
+    newAdder.parseIf();
   }
 }
 
@@ -23,6 +23,11 @@ SKIP :
 TOKEN :
 {
   < INT : "int" >
+}
+
+TOKEN :
+{
+  < IF: "if" >
 }
 
 
@@ -63,6 +68,16 @@ TOKEN :
 
 TOKEN :
 {
+  < LPRANRENT : "(" >
+}
+
+TOKEN :
+{
+  < RPRANRENT : ")" >
+}
+
+TOKEN :
+{
   < LMPRANRENT : "[" >
 }
 
@@ -91,6 +106,8 @@ TOKEN :
   < COMMA : "," >
 }
 
+
+
 public void parse() :
 {}
 {
@@ -102,4 +119,11 @@ public void parseExpress() :
 {}
 {
   < INT > <LMPRANRENT > < NUMBER > <RMPRANRENT > < STRING> < EQUEAL> < LBIGPRANRENT > < NUMBER > (<COMMA >< NUMBER >)* <RBIGPRANRENT > < COLON > < EOF >
+}
+
+//if(){}
+public void parseIf() :
+{}
+{
+  < IF > <LPRANRENT >  <RPRANRENT >< LBIGPRANRENT > <RBIGPRANRENT >  < EOF >
 }
