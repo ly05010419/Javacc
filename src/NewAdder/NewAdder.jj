@@ -6,9 +6,9 @@ public class NewAdder
 {
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test.txt");
+    FileReader reader = new FileReader("./assets/test2.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parse();
+    newAdder.parseExpress();
   }
 }
 
@@ -16,7 +16,19 @@ PARSER_END(NewAdder)
 
 SKIP :
 {
-  " "
+  " " | "\n"
+}
+
+
+TOKEN :
+{
+  < INT : "int" >
+}
+
+
+TOKEN :
+{
+  < STRING : (["a"-"z","A"-"Z"]) + (["0"-"9"])* >
 }
 
 TOKEN :
@@ -44,8 +56,50 @@ TOKEN :
   < DIVISION : "/" >
 }
 
+TOKEN :
+{
+  < EQUEAL : "=" >
+}
+
+TOKEN :
+{
+  < LMPRANRENT : "[" >
+}
+
+TOKEN :
+{
+  < RMPRANRENT : "]" >
+}
+
+TOKEN :
+{
+  < LBIGPRANRENT : "{" >
+}
+
+TOKEN :
+{
+  < RBIGPRANRENT : "}" >
+}
+
+TOKEN :
+{
+  < COLON : ";" >
+}
+
+TOKEN :
+{
+  < COMMA : "," >
+}
+
 public void parse() :
 {}
 {
   < NUMBER > ( < PLUS > | < MINUS > | < MULIPIKATION > |< DIVISION > ) < NUMBER > < EOF >
+}
+
+//int[2] A3 = {1,22};
+public void parseExpress() :
+{}
+{
+  < INT > <LMPRANRENT > < NUMBER > <RMPRANRENT > < STRING> < EQUEAL> < LBIGPRANRENT > < NUMBER > (<COMMA >< NUMBER >)* <RBIGPRANRENT > < COLON > < EOF >
 }

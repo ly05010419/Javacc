@@ -5,9 +5,9 @@ import java.io.FileReader;
 public class NewAdder implements NewAdderConstants {
   public static void main(String [] args) throws Exception
   {
-    FileReader reader = new FileReader("./assets/test.txt");
+    FileReader reader = new FileReader("./assets/test2.txt");
     NewAdder newAdder = new NewAdder(reader);
-    newAdder.parse();
+    newAdder.parseExpress();
   }
 
   static final public void parse() throws ParseException {
@@ -34,6 +34,33 @@ public class NewAdder implements NewAdderConstants {
     jj_consume_token(0);
   }
 
+  static final public void parseExpress() throws ParseException {
+    jj_consume_token(INT);
+    jj_consume_token(LMPRANRENT);
+    jj_consume_token(NUMBER);
+    jj_consume_token(RMPRANRENT);
+    jj_consume_token(STRING);
+    jj_consume_token(EQUEAL);
+    jj_consume_token(LBIGPRANRENT);
+    jj_consume_token(NUMBER);
+    label_1:
+    while (true) {
+      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+      case COMMA:
+        ;
+        break;
+      default:
+        jj_la1[1] = jj_gen;
+        break label_1;
+      }
+      jj_consume_token(COMMA);
+      jj_consume_token(NUMBER);
+    }
+    jj_consume_token(RBIGPRANRENT);
+    jj_consume_token(COLON);
+    jj_consume_token(0);
+  }
+
   static private boolean jj_initialized_once = false;
   /** Generated Token Manager. */
   static public NewAdderTokenManager token_source;
@@ -44,13 +71,13 @@ public class NewAdder implements NewAdderConstants {
   static public Token jj_nt;
   static private int jj_ntk;
   static private int jj_gen;
-  static final private int[] jj_la1 = new int[1];
+  static final private int[] jj_la1 = new int[2];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x78,};
+      jj_la1_0 = new int[] {0x3c0,0x10000,};
    }
 
   /** Constructor with InputStream. */
@@ -71,7 +98,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -85,7 +112,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -102,7 +129,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -112,7 +139,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -128,7 +155,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -137,7 +164,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 1; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 2; i++) jj_la1[i] = -1;
   }
 
   static private Token jj_consume_token(int kind) throws ParseException {
@@ -188,12 +215,12 @@ public class NewAdder implements NewAdderConstants {
   /** Generate ParseException. */
   static public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[7];
+    boolean[] la1tokens = new boolean[17];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 1; i++) {
+    for (int i = 0; i < 2; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -202,7 +229,7 @@ public class NewAdder implements NewAdderConstants {
         }
       }
     }
-    for (int i = 0; i < 7; i++) {
+    for (int i = 0; i < 17; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;

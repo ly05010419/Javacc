@@ -11,15 +11,33 @@ public interface NewAdderConstants {
   /** End of File. */
   int EOF = 0;
   /** RegularExpression Id. */
-  int NUMBER = 2;
+  int INT = 3;
   /** RegularExpression Id. */
-  int PLUS = 3;
+  int STRING = 4;
   /** RegularExpression Id. */
-  int MINUS = 4;
+  int NUMBER = 5;
   /** RegularExpression Id. */
-  int MULIPIKATION = 5;
+  int PLUS = 6;
   /** RegularExpression Id. */
-  int DIVISION = 6;
+  int MINUS = 7;
+  /** RegularExpression Id. */
+  int MULIPIKATION = 8;
+  /** RegularExpression Id. */
+  int DIVISION = 9;
+  /** RegularExpression Id. */
+  int EQUEAL = 10;
+  /** RegularExpression Id. */
+  int LMPRANRENT = 11;
+  /** RegularExpression Id. */
+  int RMPRANRENT = 12;
+  /** RegularExpression Id. */
+  int LBIGPRANRENT = 13;
+  /** RegularExpression Id. */
+  int RBIGPRANRENT = 14;
+  /** RegularExpression Id. */
+  int COLON = 15;
+  /** RegularExpression Id. */
+  int COMMA = 16;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -28,11 +46,21 @@ public interface NewAdderConstants {
   String[] tokenImage = {
     "<EOF>",
     "\" \"",
+    "\"\\n\"",
+    "\"int\"",
+    "<STRING>",
     "<NUMBER>",
     "\"+\"",
     "\"-\"",
     "\"*\"",
     "\"/\"",
+    "\"=\"",
+    "\"[\"",
+    "\"]\"",
+    "\"{\"",
+    "\"}\"",
+    "\";\"",
+    "\",\"",
   };
 
 }
