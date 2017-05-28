@@ -15,51 +15,53 @@ public interface NewAdderConstants {
   /** RegularExpression Id. */
   int IF = 7;
   /** RegularExpression Id. */
-  int STRING = 8;
+  int VARIABLE = 8;
   /** RegularExpression Id. */
   int NUMMER = 9;
   /** RegularExpression Id. */
   int DIGITS = 10;
   /** RegularExpression Id. */
-  int PLUS = 11;
+  int STRING = 11;
   /** RegularExpression Id. */
-  int MINUS = 12;
+  int PLUS = 12;
   /** RegularExpression Id. */
-  int MULIPIKATION = 13;
+  int MINUS = 13;
   /** RegularExpression Id. */
-  int DIVISION = 14;
+  int MULIPIKATION = 14;
   /** RegularExpression Id. */
-  int EQUEAL = 15;
+  int DIVISION = 15;
   /** RegularExpression Id. */
-  int LMPRANRENT = 16;
+  int EQUEAL = 16;
   /** RegularExpression Id. */
-  int RMPRANRENT = 17;
+  int LMPRANRENT = 17;
   /** RegularExpression Id. */
-  int OPEN_PAR = 18;
+  int RMPRANRENT = 18;
   /** RegularExpression Id. */
-  int CLOSE_PAR = 19;
+  int OPEN_PAR = 19;
   /** RegularExpression Id. */
-  int LPAR = 20;
+  int CLOSE_PAR = 20;
   /** RegularExpression Id. */
-  int RPAR = 21;
+  int LBRACE = 21;
   /** RegularExpression Id. */
-  int COLON = 22;
+  int RBRACE = 22;
   /** RegularExpression Id. */
-  int COMMA = 23;
+  int COLON = 23;
   /** RegularExpression Id. */
-  int GROSS = 24;
+  int COMMA = 24;
   /** RegularExpression Id. */
-  int GROSS_GLEICH = 25;
+  int GROSS = 25;
   /** RegularExpression Id. */
-  int KLEIN = 26;
+  int GROSS_GLEICH = 26;
   /** RegularExpression Id. */
-  int KLEIN_GLEICH = 27;
+  int KLEIN = 27;
   /** RegularExpression Id. */
-  int AND = 28;
+  int KLEIN_GLEICH = 28;
   /** RegularExpression Id. */
-  int OR = 29;
+  int AND = 29;
   /** RegularExpression Id. */
-  int NOT = 30;
+  int OR = 30;
+  /** RegularExpression Id. */
+  int NOT = 31;
 
   /** Lexical state. */
   int DEFAULT = 0;
@@ -74,9 +76,10 @@ public interface NewAdderConstants {
     "\"\\t\"",
     "\"int\"",
     "\"if\"",
-    "<STRING>",
+    "<VARIABLE>",
     "<NUMMER>",
     "<DIGITS>",
+    "<STRING>",
     "\"+\"",
     "\"-\"",
     "\"*\"",

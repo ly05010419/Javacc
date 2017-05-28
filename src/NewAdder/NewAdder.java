@@ -46,10 +46,10 @@ public class NewAdder implements NewAdderConstants {
       bediennung();
     }
     jj_consume_token(CLOSE_PAR);
-    jj_consume_token(LPAR);
+    jj_consume_token(LBRACE);
     Expression();
     jj_consume_token(COLON);
-    jj_consume_token(RPAR);
+    jj_consume_token(RBRACE);
     jj_consume_token(0);
   }
 
@@ -77,32 +77,45 @@ public class NewAdder implements NewAdderConstants {
   }
 
   final public void Expression() throws ParseException, NumberFormatException {
-    Term();
-    label_2:
-    while (true) {
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case PLUS:
-      case MINUS:
-        ;
-        break;
-      default:
-        jj_la1[3] = jj_gen;
-        break label_2;
+    switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+    case MINUS:
+      jj_consume_token(MINUS);
+      Term();
+      break;
+    case NUMMER:
+    case OPEN_PAR:
+      Term();
+      label_2:
+      while (true) {
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case PLUS:
+        case MINUS:
+          ;
+          break;
+        default:
+          jj_la1[3] = jj_gen;
+          break label_2;
+        }
+        switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
+        case PLUS:
+          jj_consume_token(PLUS);
+          Term();
+          break;
+        case MINUS:
+          jj_consume_token(MINUS);
+          Term();
+          break;
+        default:
+          jj_la1[4] = jj_gen;
+          jj_consume_token(-1);
+          throw new ParseException();
+        }
       }
-      switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
-      case PLUS:
-        jj_consume_token(PLUS);
-        Term();
-        break;
-      case MINUS:
-        jj_consume_token(MINUS);
-        Term();
-        break;
-      default:
-        jj_la1[4] = jj_gen;
-        jj_consume_token(-1);
-        throw new ParseException();
-      }
+      break;
+    default:
+      jj_la1[5] = jj_gen;
+      jj_consume_token(-1);
+      throw new ParseException();
     }
   }
 
@@ -116,7 +129,7 @@ public class NewAdder implements NewAdderConstants {
         ;
         break;
       default:
-        jj_la1[5] = jj_gen;
+        jj_la1[6] = jj_gen;
         break label_3;
       }
       switch ((jj_ntk==-1)?jj_ntk():jj_ntk) {
@@ -129,7 +142,7 @@ public class NewAdder implements NewAdderConstants {
         Primary();
         break;
       default:
-        jj_la1[6] = jj_gen;
+        jj_la1[7] = jj_gen;
         jj_consume_token(-1);
         throw new ParseException();
       }
@@ -147,7 +160,7 @@ public class NewAdder implements NewAdderConstants {
       jj_consume_token(CLOSE_PAR);
       break;
     default:
-      jj_la1[7] = jj_gen;
+      jj_la1[8] = jj_gen;
       jj_consume_token(-1);
       throw new ParseException();
     }
@@ -162,13 +175,13 @@ public class NewAdder implements NewAdderConstants {
   public Token jj_nt;
   private int jj_ntk;
   private int jj_gen;
-  final private int[] jj_la1 = new int[8];
+  final private int[] jj_la1 = new int[9];
   static private int[] jj_la1_0;
   static {
       jj_la1_init_0();
    }
    private static void jj_la1_init_0() {
-      jj_la1_0 = new int[] {0x70000000,0x70000000,0xf000000,0x1800,0x1800,0x6000,0x6000,0x40200,};
+      jj_la1_0 = new int[] {0xe0000000,0xe0000000,0x1e000000,0x3000,0x3000,0x82200,0xc000,0xc000,0x80200,};
    }
 
   /** Constructor with InputStream. */
@@ -182,7 +195,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -196,7 +209,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   /** Constructor. */
@@ -206,7 +219,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -216,7 +229,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   /** Constructor with generated Token Manager. */
@@ -225,7 +238,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   /** Reinitialise. */
@@ -234,7 +247,7 @@ public class NewAdder implements NewAdderConstants {
     token = new Token();
     jj_ntk = -1;
     jj_gen = 0;
-    for (int i = 0; i < 8; i++) jj_la1[i] = -1;
+    for (int i = 0; i < 9; i++) jj_la1[i] = -1;
   }
 
   private Token jj_consume_token(int kind) throws ParseException {
@@ -285,12 +298,12 @@ public class NewAdder implements NewAdderConstants {
   /** Generate ParseException. */
   public ParseException generateParseException() {
     jj_expentries.clear();
-    boolean[] la1tokens = new boolean[31];
+    boolean[] la1tokens = new boolean[32];
     if (jj_kind >= 0) {
       la1tokens[jj_kind] = true;
       jj_kind = -1;
     }
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 9; i++) {
       if (jj_la1[i] == jj_gen) {
         for (int j = 0; j < 32; j++) {
           if ((jj_la1_0[i] & (1<<j)) != 0) {
@@ -299,7 +312,7 @@ public class NewAdder implements NewAdderConstants {
         }
       }
     }
-    for (int i = 0; i < 31; i++) {
+    for (int i = 0; i < 32; i++) {
       if (la1tokens[i]) {
         jj_expentry = new int[1];
         jj_expentry[0] = i;
