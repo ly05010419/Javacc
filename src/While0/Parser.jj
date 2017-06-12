@@ -1,0 +1,165 @@
+/**
+ * JavaCC template file created by SF JavaCC plugin 1.5.28+ wizard for JavaCC 1.5.0+
+ */
+options
+{
+  static = true;
+//  DEBUG_PARSER= true;
+  
+//  LOOKAHEAD = 2;
+//  FORCE_LA_CHECK = true;
+//  DEBUG_LOOKAHEAD = true;
+//DEBUG_TOKEN_MANAGER = true;
+//CHOICE_AMBIGUITY_CHECK = 3;
+}
+
+PARSER_BEGIN(MeinParser)
+
+package While0;
+import java.io.FileReader;
+
+public class MeinParser
+{
+  public static void main(String args []) throws Exception
+  {
+    FileReader reader = new FileReader("./assetsWhile0/test5.txt");
+    MeinParser meinParser = new MeinParser(reader);
+    
+//meinParser.wertzuweisungTest();
+//meinParser.bedienung();
+//meinParser.ifVerzweigungTest();
+//meinParser.schleifeTest();
+meinParser.anweisung();
+    
+  }
+}
+
+PARSER_END(MeinParser)
+
+SKIP :
+{
+  " "
+| "\r"
+| "\t"
+| "\n"
+}
+
+TOKEN : /* OPERATORS */
+{
+  < WHILE : "while" >
+| < DO : "do" >
+| < BEGIN : "begin" >
+| < END : "end" >
+| < IF : "if" >
+| < THEN : "then" >
+| < FI : "fi" >
+
+
+| < NUMBER : "0" | ( [ "1"-"9" ] ([ "0"-"9" ])* ) >
+| < IDENT : [ "a"-"z", "A"-"Z" ]([ "a"-"z", "A"-"Z", "0"-"9" ])* >
+
+
+
+| < ASSIGN : "=" >
+| < PLUS : "+" >
+| < MINUS : "-" >
+| < MULTIPLY : "*" >
+| < DIVIDE : "/" >
+
+| < NOTEQUAL : "!=" >
+| < EQUEAL : "==" >
+| < GROSS : ">" >
+| < GROSS_GLEICH : ">=" >
+| < KLEIN : "<" >
+| < KLEIN_GLEICH : "<=" >
+}
+
+
+
+
+
+void wertzuweisungTest() :
+{
+}
+{
+(< IDENT >< ASSIGN>(< NUMBER > | < IDENT >)((<PLUS >|<MINUS >|<MULTIPLY >|<DIVIDE >)(< NUMBER > | < IDENT >))* )+< EOF>
+{System.out.println("Ein gültiges Wertzuweisung!");}
+}
+
+void wertzuweisung() :
+{
+}
+{
+< IDENT >< ASSIGN>(< NUMBER > | < IDENT >)((<PLUS >|<MINUS >|<MULTIPLY >|<DIVIDE >)(< NUMBER > | < IDENT >))*
+}
+
+
+
+
+
+
+void bedienungTest() :
+{
+}
+{
+((< NUMBER > | < IDENT >)(<NOTEQUAL>|<EQUEAL >|< GROSS >|< GROSS_GLEICH > |< KLEIN>|< KLEIN_GLEICH>)(< NUMBER > | < IDENT >))+< EOF>
+{System.out.println("Ein gültiges Bedienung!");}
+}
+
+void bedienung() :
+{
+}
+{
+< IDENT >(<NOTEQUAL>|<EQUEAL >|< GROSS >|< GROSS_GLEICH > |< KLEIN>|< KLEIN_GLEICH>)(< NUMBER > | < IDENT >)
+}
+
+
+
+
+
+void ifVerzweigungTest() :
+{
+}
+{
+(  < IF >bedienung() < THEN>wertzuweisung()<FI>)+< EOF>
+  {System.out.println("Ein gültiges IfVerzweigung!");}
+}
+
+void ifVerzweigung() :
+{
+}
+{
+< IF >bedienung() < THEN>wertzuweisung()<FI>
+}
+
+
+
+
+
+void schleifeTest() :
+{
+}
+{
+< WHILE>< IDENT>< NOTEQUAL>< IDENT><DO ><BEGIN >wertzuweisung()< END>< EOF>
+{System.out.println("Ein gültiges Schleife!");}
+}
+
+void schleife() :
+{
+}
+{
+< WHILE>< IDENT>< NOTEQUAL>< IDENT><DO ><BEGIN >wertzuweisung()< END>
+}
+
+
+
+
+
+void anweisung() :
+{
+}
+{
+( wertzuweisung() | ifVerzweigung() | schleife())+< EOF >
+{System.out.println("Ein gültiges While0-Programm!");}
+}
+
